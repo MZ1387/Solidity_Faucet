@@ -26,7 +26,6 @@ function App() {
 
       if (provider) {
 
-        provider.request({ method: 'eth_requestAccounts' });
         // you will get a provider from windox context
         // which is injected by metamask and then you will
         // create a new instance of Web3 with provider injected 
@@ -54,19 +53,38 @@ function App() {
 
     web3API.web3 && getAccount();
   }, [web3API.web3]);
-console.log('account', account);
+
+
   return (
     <div className="faucet-wrapper">
       <div className="faucet">
-        <span>
-          <strong>Account: </strong>
-        </span>
-        <h1>{ account ? account : "not connected..." }</h1>
-        <div className="balance-view is-size-2">
+        <div className='is-flex is-align-items-center'>
+          <span>
+            <strong className='mr-2'>Account: </strong>
+          </span>
+          <div>
+            { 
+              account ? 
+              account : (
+                <button 
+                  className="button is-small"
+                  onClick={() => web3API.provider.request({ method: 'eth_requestAccounts' })}
+                >
+                  Connect Wallet
+                </button>
+              ) 
+            }
+          </div>
+        </div>
+        <div className="balance-view is-size-2 my-4">
           Current Balance: <strong>10</strong> ETH
         </div>
-        <button className="btn mr-2">Donate</button>
-        <button className="btn">Withdraw</button>
+        <button 
+          className="button is-primary mr-2"
+        >
+          Donate
+        </button>
+        <button className="button is-link">Withdraw</button>
       </div>
     </div>
   );
