@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import detectEthereumProvider from '@metamask/detect-provider';
 import './App.css';
 import Web3 from 'web3';
 
@@ -21,33 +22,23 @@ function App() {
     // sign messages and transactions
     const loadProvider = async () => {
 
-      let provider = null;
+      const provider = await detectEthereumProvider();
 
-      if (window.ethereum) {
-        provider = window.ethereum;
+      if (provider) {
 
-        try {
-          // enable metamask
-          await provider.enable()
-        } catch (error) {
-          console.log('User denied account access.');
-        }
+        provider.request({ method: 'eth_requestAccounts' });
+        // you will get a provider from windox context
+        // which is injected by metamask and then you will
+        // create a new instance of Web3 with provider injected 
+        // by metamask. this will provide functionality
+        setWeb3API({
+          web3: new Web3(provider),
+          provider
+        });
 
-
-      } else if (window.web3) {
-        provider = window.web3.currentProvider;
-      } else if (!process.env.production) {
-        provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')
+      } else {
+        console.log('Please install metamask.');
       }
-
-      // you will get a provider from windox context
-      // which is injected by metamask and then you will
-      // create a new instance of Web3 with provider injected 
-      // by metamask. this will provide functionality
-      setWeb3API({
-        web3: new Web3(provider),
-        provider
-      });
 
     }
 
@@ -57,7 +48,7 @@ function App() {
   useEffect(() => {
     const getAccount = async () => {
       const accounts = await web3API.web3.eth.getAccounts();
-      debugger
+
       setAccount(accounts[0]);
     }
 
