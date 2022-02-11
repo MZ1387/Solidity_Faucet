@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
 import './App.css';
 import Web3 from 'web3';
+import { loadContract } from './utils/load-contract';
 
 function App() {
 
   const [web3API, setWeb3API] = useState({
     provider: null,
-    web3: null
+    web3: null,
+    contract: null
   });
 
   const [account, setAccount] = useState(null);
@@ -23,7 +25,7 @@ function App() {
     const loadProvider = async () => {
 
       const provider = await detectEthereumProvider();
-
+      const contract = await loadContract('Faucet');
       if (provider) {
 
         // you will get a provider from windox context
@@ -32,7 +34,8 @@ function App() {
         // by metamask. this will provide functionality
         setWeb3API({
           web3: new Web3(provider),
-          provider
+          provider,
+          contract
         });
 
       } else {
