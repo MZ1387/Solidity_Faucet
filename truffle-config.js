@@ -20,15 +20,13 @@ module.exports = {
       port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
     },
-    
-    // Configure your compilers
-    compilers: {
-      solc: {
-        // Fetch exact version from solc-bin (default: truffle's version)
-        version: "0.8.0",
-      }
-    },
-
-    contracts_build_directory: "./public/contracts"
-  }
+  },
+  // Configure your compilers
+  compilers: {
+    solc: {
+      // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.4",
+    }
+  },
+  contracts_build_directory: "./public/contracts"
 };
