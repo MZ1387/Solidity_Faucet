@@ -12,7 +12,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -25,18 +26,21 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "stateMutability": "payable",
-      "type": "receive"
+      "type": "receive",
+      "payable": true
     },
     {
       "inputs": [],
       "name": "addFunds",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -62,7 +66,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -81,7 +86,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.4+commit.c7e474f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"addFunds\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"fundersCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllFunders\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"index\",\"type\":\"uint8\"}],\"name\":\"getFunderAtIndex\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"withdrawAmount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Faucet.sol\":\"Faucet\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Faucet.sol\":{\"keccak256\":\"0x4649d466dc4bd3f66d2c8f2454049a12ae1593d4c2ba2d5782b619e555e727ca\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://5ca75eb637ab5e447999cf7c91b4420fe8dcd0e436128477f0fe552a028c4614\",\"dweb:/ipfs/QmaZQgpqRtEQ3dGb74ZUKLu6yTLYQqBa5LaiGmeT579ANB\"]},\"project:/contracts/IFaucet.sol\":{\"keccak256\":\"0xc52481fe94e004fedc85702eb40171af320169b7f1fe4a4b1ad3f5fbb9f84d22\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://dcfb2709a7fb164c0e7d1931914854894847e5fb1de5678283c7a3cb60e553bc\",\"dweb:/ipfs/QmVPGaYwcpCh3RWK1jcC5Za8V63MEqgvWg4idB2qYMVtgD\"]},\"project:/contracts/Owned.sol\":{\"keccak256\":\"0x1957a17b8e6c28cba41f562d154142402efb66911f7c2931badff9501ad20684\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d0f326cf936970d48c65ed2439bb1be8bd1a0e1a5bc93aa5d20d6ead6ee61d15\",\"dweb:/ipfs/QmUsEH1zwnBdiwSZdHKaVm82gVW9jjVAbsX5FwqZBEoyPR\"]}},\"version\":1}",
@@ -6216,9 +6222,17 @@
     "name": "solc",
     "version": "0.8.4+commit.c7e474f2.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xf9B46ae4a73D057b7C381717ca0Cdc65676FD2B9",
+      "transactionHash": "0x2d8796d13ff7e3550d49c35f0b357104d0cbe84c2763e848a14a88ec646accaf"
+    }
+  },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-12T09:42:52.372Z",
+  "updatedAt": "2022-02-14T19:12:48.143Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
