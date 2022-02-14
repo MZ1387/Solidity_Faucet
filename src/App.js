@@ -14,6 +14,9 @@ function App() {
 
   const [balance, setBalance] = useState(null);
   const [account, setAccount] = useState(null);
+  const [reload, setReload] = useState(false);
+
+  const reloadEffect = () => setReload(!reload);
 
   // when component is mounted on the screen
   // useEffect will be executed only once
@@ -60,7 +63,7 @@ function App() {
     };
 
     web3API.contract && loadBalance();
-  }, [web3API]);
+  }, [web3API, reload]);
 
   useEffect(() => {
     const getAccount = async () => {
@@ -75,10 +78,13 @@ function App() {
   const addFunds = useCallback(async () => {
 
     const { contract, web3 } = web3API;
+
     await contract.addFunds({
       from: account,
       value: web3.utils.toWei('1', 'ether')
     });
+
+    reloadEffect();
   }, [web3API, account]);
 
 
