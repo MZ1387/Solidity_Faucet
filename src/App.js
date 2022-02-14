@@ -12,6 +12,7 @@ function App() {
     contract: null
   });
 
+  const [balance, setBalance] = useState(null);
   const [account, setAccount] = useState(null);
 
   // when component is mounted on the screen
@@ -49,6 +50,19 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const loadBalance = async () => {
+      
+      const { contract, web3 } = web3API;
+      const balance = await web3.eth.getBalance(contract.address);
+      const balanceInEther = web3.utils.fromWei(balance, 'ether');
+
+      setBalance(balanceInEther);
+    };
+
+    web3API.contract && loadBalance();
+  }, [web3API]);
+
+  useEffect(() => {
     const getAccount = async () => {
       const accounts = await web3API.web3.eth.getAccounts();
 
@@ -81,7 +95,7 @@ function App() {
           </div>
         </div>
         <div className="balance-view is-size-2 my-4">
-          Current Balance: <strong>10</strong> ETH
+          Current Balance: <strong>{balance}</strong> ETH
         </div>
         <button 
           className="button is-primary mr-2"
