@@ -16,7 +16,7 @@ function App() {
   const [account, setAccount] = useState(null);
   const [reload, setReload] = useState(false);
 
-  const reloadEffect = () => setReload(!reload);
+  const reloadEffect = useCallback(() => setReload(!reload), [reload]);
 
   // when component is mounted on the screen
   // useEffect will be executed only once
@@ -85,7 +85,18 @@ function App() {
     });
 
     reloadEffect();
-  }, [web3API, account]);
+  }, [web3API, account, reloadEffect]);
+
+  const withdrawFunds = async () => {
+    const { contract, web3 } = web3API;
+    const withdrawAmount = web3.utils.toWei('0.1', 'ether');
+
+    await contract.withdraw(withdrawAmount, {
+      from: account
+    });
+
+    reloadEffect();
+  };
 
 
   return (
@@ -118,7 +129,12 @@ function App() {
         >
           Donate 1 Ether
         </button>
-        <button className="button is-link">Withdraw</button>
+        <button 
+          className="button is-link"
+          onClick={withdrawFunds}
+        >
+          Withdraw
+        </button>
       </div>
     </div>
   );
