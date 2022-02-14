@@ -19,7 +19,7 @@ function App() {
   const reloadEffect = useCallback(() => setReload(!reload), [reload]);
 
   const setAccountListener = (provider) => {
-    provider.on('accountsChanged', (accounts) => setAccount(accounts[0]))
+    provider.on('accountsChanged', () => window.location.reload());
   };
 
   // when component is mounted on the screen
@@ -131,12 +131,14 @@ function App() {
           Current Balance: <strong>{balance}</strong> ETH
         </div>
         <button 
+          disabled={!account}
           className="button is-primary mr-2"
           onClick={addFunds}
         >
           Donate 1 Ether
         </button>
         <button 
+          disabled={!account}
           className="button is-link"
           onClick={withdrawFunds}
         >
