@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
 import './App.css';
 import Web3 from 'web3';
@@ -51,7 +51,7 @@ function App() {
 
   useEffect(() => {
     const loadBalance = async () => {
-      
+
       const { contract, web3 } = web3API;
       const balance = await web3.eth.getBalance(contract.address);
       const balanceInEther = web3.utils.fromWei(balance, 'ether');
@@ -71,6 +71,15 @@ function App() {
 
     web3API.web3 && getAccount();
   }, [web3API.web3]);
+
+  const addFunds = useCallback(async () => {
+
+    const { contract, web3 } = web3API;
+    await contract.addFunds({
+      from: account,
+      value: web3.utils.toWei('1', 'ether')
+    });
+  }, [web3API, account]);
 
 
   return (
@@ -99,8 +108,9 @@ function App() {
         </div>
         <button 
           className="button is-primary mr-2"
+          onClick={addFunds}
         >
-          Donate
+          Donate 1 Ether
         </button>
         <button className="button is-link">Withdraw</button>
       </div>
