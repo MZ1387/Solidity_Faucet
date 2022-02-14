@@ -18,6 +18,10 @@ function App() {
 
   const reloadEffect = useCallback(() => setReload(!reload), [reload]);
 
+  const setAccountListener = (provider) => {
+    provider.on('accountsChanged', (accounts) => setAccount(accounts[0]))
+  };
+
   // when component is mounted on the screen
   // useEffect will be executed only once
   useEffect(() => {
@@ -32,6 +36,9 @@ function App() {
       const contract = await loadContract('Faucet', provider);
 
       if (provider) {
+
+        // execute when metamask account is changed
+        setAccountListener(provider);
 
         // you will get a provider from windox context
         // which is injected by metamask and then you will
