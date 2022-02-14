@@ -17,10 +17,12 @@ function App() {
   const [account, setAccount] = useState(null);
   const [reload, setReload] = useState(false);
 
+  const canConnectToContract = account && web3API.contract;
   const reloadEffect = useCallback(() => setReload(!reload), [reload]);
 
   const setAccountListener = (provider) => {
     provider.on('accountsChanged', () => window.location.reload());
+    provider.on('chainChanged', () => window.location.reload());
   };
 
   // when component is mounted on the screen
@@ -54,11 +56,11 @@ function App() {
         });
 
       } else {
-        setWeb3API({ ...web3API, isProviderLoaded: true });
+        setWeb3API((api) => ({ ...api, isProviderLoaded: true }));
         console.log('Please install metamask.');
       }
 
-    }
+    };
 
     loadProvider();
   }, []);
@@ -126,7 +128,11 @@ function App() {
                 (
                   <div className='notification is-warning is-size-6 is-rounded'>
                     Wallet not detected!{` `}
-                    <a target='_blank' href='https://docs.metamask.io/guide/' >
+                    <a 
+                      target='_blank' 
+                      rel="noreferrer"
+                      href='https://docs.metamask.io/guide/' 
+                    >
                       Install Metamask
                     </a>
                   </div>
@@ -145,22 +151,33 @@ function App() {
             <span>Looking for web3...</span>
           )
         }
-        <div className="balance-view is-size-2 my-4">
-          Current Balance: <strong>{balance}</strong> ETH
-        </div>
+        {
+          !web3API.provider || !canConnectToContract ? null : (
+            <div className="balance-view is-size-2 my-4">
+              Current Balance: <strong>{balance}</strong> ETH
+            </div>
+          )
+        }
+        {
+          !canConnectToContract && (
+            <i className='is-block'>
+              Connect to Ganache Network
+            </i>
+          )
+        }
         <button 
-          disabled={!account}
+          disabled={!canConnectToContract}
           className="button is-primary mr-2"
           onClick={addFunds}
         >
           Donate 1 Ether
         </button>
         <button 
-          disabled={!account}
+          disabled={!canConnectToContract}
           className="button is-link"
           onClick={withdrawFunds}
         >
-          Withdraw
+          Withdraw 0.1 Ether
         </button>
       </div>
     </div>
